@@ -18,8 +18,6 @@ An unsupervised anomaly detection system built using an LSTM Autoencoder on the 
 * Epochs: 50
 * Threshold: 95th percentile of training reconstruction errors
 
----
-
 ## Dataset
 
 SKAB (Skoltech Anomaly Benchmark) – Valve-1 subset
@@ -41,47 +39,19 @@ Sensor Features:
 * Voltage
 * Volume Flow RateRMS
 
----
 
 ## Model Architecture
 
-Input Sequence (30 × 8)
+Input Window (30×8)
+→ 2-Layer LSTM Encoder (Hidden=32)
+→ Final Hidden State (Latent Representation)
+→ Latent Vector Repeated Across Sequence Length
+→ 2-Layer LSTM Decoder
+→ Linear Layer (32→8)
+→ Reconstructed Window (30×8)
 
-↓ Encoder
+Anomaly Score = Mean Squared Reconstruction Error (MSE)
 
-2-Layer LSTM (Hidden = 32)
-
-↓ Latent Representation
-
-Final Hidden State
-
-↓ Decoder
-
-2-Layer LSTM
-
-↓ Output Layer
-
-Linear Layer (32 → 8)
-
-↓ Reconstruction
-
-Reconstructed Sensor Sequence
-
-Anomaly Score = Mean Squared Reconstruction Error
-
----
-
-## Methodology
-
-1. Load and concatenate all Valve-1 files.
-2. Fit MinMaxScaler using only normal samples.
-3. Generate sliding windows from the time-series data.
-4. Train the LSTM Autoencoder exclusively on normal windows.
-5. Compute reconstruction errors on all windows.
-6. Use the 95th percentile of training errors as the anomaly threshold.
-7. Compare performance against an Isolation Forest baseline.
-
----
 
 ## Hyperparameter Search
 
@@ -98,7 +68,6 @@ Best Result:
 
 The selected configuration was retrained for 50 epochs to obtain the final reported metrics.
 
----
 
 ## Key Findings
 
@@ -107,7 +76,6 @@ The selected configuration was retrained for 50 epochs to obtain the final repor
 * The LSTM Autoencoder consistently outperformed Isolation Forest in F1 score.
 * Temporal sequence modeling improved anomaly detection compared to a non-sequential baseline.
 
----
 
 ## Technologies
 
@@ -118,7 +86,6 @@ The selected configuration was retrained for 50 epochs to obtain the final repor
 * Scikit-Learn
 * Matplotlib
 
----
 
 ## Future Improvements
 
@@ -128,8 +95,3 @@ The selected configuration was retrained for 50 epochs to obtain the final repor
 * Bayesian hyperparameter optimization
 * Real-time streaming anomaly detection
 
----
-
-## License
-
-MIT License
