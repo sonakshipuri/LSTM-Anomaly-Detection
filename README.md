@@ -29,7 +29,6 @@ SKAB (Skoltech Anomaly Benchmark) – Valve-1 subset
 * 6,309 anomalous samples
 
 Sensor Features:
-
 * Accelerometer1RMS
 * Accelerometer2RMS
 * Current
@@ -43,12 +42,12 @@ Sensor Features:
 ## Model Architecture
 
 Input Window (30×8)
-→ 2-Layer LSTM Encoder (Hidden=32)
-→ Final Hidden State (Latent Representation)
-→ Latent Vector Repeated Across Sequence Length
-→ 2-Layer LSTM Decoder
-→ Linear Layer (32→8)
-→ Reconstructed Window (30×8)
+* 2-Layer LSTM Encoder (Hidden=32)
+* Final Hidden State (Latent Representation)
+* Latent Vector Repeated Across Sequence Length
+* 2-Layer LSTM Decoder
+* Linear Layer (32→8)
+* Reconstructed Window (30×8)
 
 Anomaly Score = Mean Squared Reconstruction Error (MSE)
 
