@@ -1,4 +1,4 @@
-# LSTM Autoencoder for Industrial Anomaly Detection
+# LSTM Autoencoder for Anomaly Detection
 
 An unsupervised anomaly detection system built using an LSTM Autoencoder on the SKAB (Skoltech Anomaly Benchmark) industrial sensor dataset. The model learns normal operating behavior and identifies anomalies using reconstruction error without relying on labels during training.
 
